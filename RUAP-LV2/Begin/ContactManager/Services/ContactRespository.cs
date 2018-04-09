@@ -51,29 +51,30 @@ namespace ContactManager.Services
                 }
             }
         }
-    }
-
-    public bool SaveContact(Contact contact)
-    {
-        var ctx = HttpContext.Current;
-
-        if (ctx != null)
+        public bool SaveContact(Contact contact)
         {
-            try
-            {
-                var currentData = ((Contact[])ctx.Cache[CacheKey]).ToList();
-                currentData.Add(contact);
-                ctx.Cache[CacheKey] = currentData.ToArray();
+            var ctx = HttpContext.Current;
 
-                return true;
-            }
-            catch (Exception ex)
+            if (ctx != null)
             {
-                Console.WriteLine(ex.ToString());
-                return false;
+                try
+                {
+                    var currentData = ((Contact[])ctx.Cache[CacheKey]).ToList();
+                    currentData.Add(contact);
+                    ctx.Cache[CacheKey] = currentData.ToArray();
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
             }
+
+            return false;
         }
-
-        return false;
     }
+
+
 }
